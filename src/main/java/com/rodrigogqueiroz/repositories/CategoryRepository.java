@@ -1,0 +1,11 @@
+package com.rodrigogqueiroz.repositories;
+
+import com.rodrigogqueiroz.domain.Category;
+
+import io.quarkus.mongodb.panache.PanacheMongoRepository;
+import jakarta.enterprise.context.ApplicationScoped;
+
+@ApplicationScoped
+public interface CategoryRepository extends PanacheMongoRepository<Category> {
+
+}
