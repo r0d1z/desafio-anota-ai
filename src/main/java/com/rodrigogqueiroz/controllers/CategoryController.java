@@ -1,6 +1,6 @@
 package com.rodrigogqueiroz.controllers;
 
-import com.rodrigogqueiroz.domain.CategoryDTO;
+import com.rodrigogqueiroz.domain.Category.CategoryDTO;
 import com.rodrigogqueiroz.services.CategoryService;
 
 import jakarta.enterprise.context.RequestScoped;
@@ -12,9 +12,13 @@ import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import org.bson.types.ObjectId;
 
+@Produces(MediaType.APPLICATION_JSON)
+@Consumes(MediaType.APPLICATION_JSON)
 @RequestScoped
 @Path("/api/category")
 public class CategoryController {
@@ -23,55 +27,37 @@ public class CategoryController {
     private CategoryService categoryService;
 
     @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
     @Path("/retrieve/{ownerID}")
-    public Response retrieve(String ownerID) {
-        try{
-            categoryService.retrieveAllFromOwner(ownerID);
-            return Response.status(Response.Status.OK).entity("Categories retrieved").build();
-        } catch (Exception e) {
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Error retrieving categories").build();
-        }
+    public Response retrieve(@PathParam("ownerID") ObjectId ownerID) {
+        var category = categoryService.retrieveAllFromOwner(ownerID);
+        return Response.ok(category).build();
     }
 
     @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
     @Path("/retrieve/all")
-    public Response retrieveAll(String ownerID) {
-        try{
-            categoryService.retrieveAll();
-            return Response.status(Response.Status.OK).entity("Categories retrieved").build();
-        } catch (Exception e) {
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Error retrieving categories").build();
-        }
+    public Response retrieveAll() {
+        var categories = categoryService.retrieveAll();
+        return Response.ok(categories).build();
     }
 
     @POST
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
     @Path("/insert")
     public Response insert(CategoryDTO categoryData) {
-        try{
-            categoryService.insert(categoryData);
-            return Response.status(Response.Status.CREATED).entity(categoryData).build();
-        } catch (Exception e) {
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Error inserting category").build();
-        }
+        var category = categoryService.insert(categoryData);
+        return Response.status(Response.Status.CREATED).entity(category).build();
     }
 
     @PUT
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Response update() {
-        return Response.ok("Category updated").build();
+    @Path("/update/{id}")
+    public Response update(@PathParam("id") ObjectId id, CategoryDTO categoryData) {
+        var categoryUpdated = categoryService.update(id, categoryData);
+        return Response.ok(categoryUpdated).build();
     }
 
     @DELETE
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Response delete() {
-        return Response.ok("Category deleted").build();
+    @Path("/delete/{id}")
+    public Response delete(@PathParam("id") ObjectId id) {
+        categoryService.delete(id);
+        return Response.status(Response.Status.NO_CONTENT).build();
     }
 }

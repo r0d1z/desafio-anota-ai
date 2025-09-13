@@ -2,6 +2,8 @@ package com.rodrigogqueiroz.domain;
 
 import org.bson.types.ObjectId;
 
+import com.rodrigogqueiroz.domain.Category.Category;
+
 import io.quarkus.mongodb.panache.common.MongoEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

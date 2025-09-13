@@ -1,4 +1,4 @@
-package com.rodrigogqueiroz.domain;
+package com.rodrigogqueiroz.domain.Category;
 
 import org.bson.types.ObjectId;
 
