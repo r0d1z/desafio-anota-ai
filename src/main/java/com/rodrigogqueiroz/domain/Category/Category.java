@@ -12,9 +12,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
-@Builder
 
 @MongoEntity(collection = "categories")
 public class Category {

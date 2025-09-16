@@ -1,6 +1,8 @@
 package com.rodrigogqueiroz.services;
 
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
 import org.bson.types.ObjectId;
 
@@ -28,6 +30,10 @@ public class CategoryService {
     public List<Category> retrieveAllFromOwner(ObjectId ownerID) {
         return this.repository.find("ownerId", ownerID).list();
     }
+
+    public Category retrieveById(ObjectId id) {
+        return this.repository.findById(id);
+    }   
 
     public List<Category> retrieveAll() {
         return this.repository.listAll();
