@@ -6,6 +6,6 @@ import io.quarkus.mongodb.panache.PanacheMongoRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
-public interface CategoryRepository extends PanacheMongoRepository<Category> {
+public class CategoryRepository implements PanacheMongoRepository<Category> {
 
 }
