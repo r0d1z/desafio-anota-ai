@@ -3,8 +3,6 @@ package com.rodrigogqueiroz.domain.Category;
 import org.bson.types.ObjectId;
 
 import io.quarkus.mongodb.panache.common.MongoEntity;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

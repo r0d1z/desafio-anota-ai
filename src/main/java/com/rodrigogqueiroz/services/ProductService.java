@@ -3,10 +3,10 @@ package com.rodrigogqueiroz.services;
 import org.bson.types.ObjectId;
 
 import com.rodrigogqueiroz.domain.Category.Category;
+import com.rodrigogqueiroz.domain.Category.exceptions.CategoryNotFoundException;
 import com.rodrigogqueiroz.domain.product.Product;
 import com.rodrigogqueiroz.domain.product.ProductDTO;
 import com.rodrigogqueiroz.domain.product.exceptions.ProductNotFoundException;
-import com.rodrigogqueiroz.repositories.CategoryRepository;
 import com.rodrigogqueiroz.repositories.ProductRepository;
 
 import java.util.List;
@@ -28,6 +28,10 @@ public class ProductService {
     public Product insert(ProductDTO productData) {
 
         Category category = categoryService.retrieveById(productData.categoryId());
+
+        if(Objects.isNull(category)) {
+            throw new CategoryNotFoundException();
+        }
 
         Product product = new Product(productData);
         repository.persist(product);
@@ -68,7 +72,7 @@ public class ProductService {
         if (Objects.isNull(product)) {
             throw new ProductNotFoundException();
         }
-        
+
         this.repository.deleteById(id);
         return Response.noContent().build();
     }

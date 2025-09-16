@@ -2,9 +2,7 @@ package com.rodrigogqueiroz.controllers;
 
 import org.bson.types.ObjectId;
 
-import com.rodrigogqueiroz.domain.Category.CategoryDTO;
 import com.rodrigogqueiroz.domain.product.ProductDTO;
-import com.rodrigogqueiroz.services.CategoryService;
 import com.rodrigogqueiroz.services.ProductService;
 
 import jakarta.enterprise.context.RequestScoped;
