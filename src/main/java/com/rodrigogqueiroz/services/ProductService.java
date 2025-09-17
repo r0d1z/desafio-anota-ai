@@ -58,7 +58,7 @@ public class ProductService {
         if (Objects.nonNull(productData.description()) && !productData.description().isEmpty()) 
             product.setDescription(productData.description());
 
-        this.repository.persist(product);
+        this.repository.update(product);
         return product;
     }
 

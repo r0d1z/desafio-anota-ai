@@ -17,7 +17,7 @@ public class Product {
 
     private ObjectId id;
     private String title;
-    private ObjectId ownerId;
+    private String ownerId;
     private Category category;
     private Integer price;
     private String description;

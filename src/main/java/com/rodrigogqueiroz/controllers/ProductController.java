@@ -21,7 +21,7 @@ import jakarta.ws.rs.core.Response;
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 @RequestScoped
-@Path("/api/products")
+@Path("/api/product")
 public class ProductController {
     
     @Inject

@@ -25,7 +25,7 @@ public class CategoryService {
         return category;
     }
 
-    public List<Category> retrieveAllFromOwner(ObjectId ownerID) {
+    public List<Category> retrieveAllFromOwner(String ownerID) {
         return this.repository.find("ownerId", ownerID).list();
     }
 
@@ -50,7 +50,7 @@ public class CategoryService {
         if (!categoryData.description().isEmpty())
             category.setDescription(categoryData.description());
 
-        this.repository.persist(category);
+        this.repository.update(category);
         return category;
     }
 

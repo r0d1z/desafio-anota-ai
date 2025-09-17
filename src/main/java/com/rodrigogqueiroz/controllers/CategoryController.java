@@ -28,7 +28,7 @@ public class CategoryController {
 
     @GET
     @Path("/retrieve/{ownerID}")
-    public Response retrieve(@PathParam("ownerID") ObjectId ownerID) {
+    public Response retrieve(@PathParam("ownerID") String ownerID) {
         var category = categoryService.retrieveAllFromOwner(ownerID);
         return Response.ok(category).build();
     }
