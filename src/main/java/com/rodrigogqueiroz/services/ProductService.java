@@ -8,6 +8,8 @@ import com.rodrigogqueiroz.domain.product.Product;
 import com.rodrigogqueiroz.domain.product.ProductDTO;
 import com.rodrigogqueiroz.domain.product.exceptions.ProductNotFoundException;
 import com.rodrigogqueiroz.repositories.ProductRepository;
+import com.rodrigogqueiroz.services.aws.AwsSnsService;
+import com.rodrigogqueiroz.services.aws.MessageDTO;
 
 import java.util.List;
 import java.util.Objects;
@@ -24,7 +26,9 @@ public class ProductService {
     private CategoryService categoryService;  
     @Inject
     private ProductRepository repository;
-    
+    @Inject
+    private AwsSnsService snsService;
+
     public Product insert(ProductDTO productData) {
 
         Category category = categoryService.retrieveById(productData.categoryId());
@@ -35,6 +39,8 @@ public class ProductService {
 
         Product product = new Product(productData);
         repository.persist(product);
+        this.snsService.publishMessage(new MessageDTO(product.getOwnerId()));
+        
         return product;
     }
     
@@ -59,6 +65,8 @@ public class ProductService {
             product.setDescription(productData.description());
 
         this.repository.update(product);
+        this.snsService.publishMessage(new MessageDTO(product.getOwnerId()));
+
         return product;
     }
 
