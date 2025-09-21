@@ -18,7 +18,7 @@ public class Product {
     private ObjectId id;
     private String title;
     private String ownerId;
-    private Category category;
+    private ObjectId categoryId;
     private Integer price;
     private String description;
 
@@ -27,6 +27,7 @@ public class Product {
         this.ownerId = productData.ownerId();
         this.price = productData.price();
         this.description = productData.description();
+        this.categoryId = productData.categoryId();
     }
 
 }

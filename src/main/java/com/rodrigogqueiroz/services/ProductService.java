@@ -52,11 +52,14 @@ public class ProductService {
             throw new ProductNotFoundException();
         }
 
+        if(Objects.isNull(category)) {
+            throw new CategoryNotFoundException();
+        }
+
+        product.setCategoryId(productData.categoryId());
+
         if (!productData.title().isEmpty())
             product.setTitle(productData.title());
-
-        if (Objects.nonNull(category))
-            product.setCategory(category);
 
         if (Objects.nonNull(productData.price()))
             product.setPrice(productData.price());
