@@ -39,8 +39,8 @@ public class ProductService {
 
         Product product = new Product(productData);
         repository.persist(product);
-        this.snsService.publishMessage(new MessageDTO(product.getOwnerId()));
-        
+        this.snsService.publishMessage(new MessageDTO(product.toString()));
+
         return product;
     }
     
@@ -68,7 +68,7 @@ public class ProductService {
             product.setDescription(productData.description());
 
         this.repository.update(product);
-        this.snsService.publishMessage(new MessageDTO(product.getOwnerId()));
+        this.snsService.publishMessage(new MessageDTO(product.toString()));
 
         return product;
     }

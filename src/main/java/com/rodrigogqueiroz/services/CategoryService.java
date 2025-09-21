@@ -7,6 +7,8 @@ import org.bson.types.ObjectId;
 import com.rodrigogqueiroz.domain.Category.Category;
 import com.rodrigogqueiroz.domain.Category.CategoryDTO;
 import com.rodrigogqueiroz.repositories.CategoryRepository;
+import com.rodrigogqueiroz.services.aws.AwsSnsService;
+import com.rodrigogqueiroz.services.aws.MessageDTO;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -18,10 +20,13 @@ public class CategoryService {
 
     @Inject
     private CategoryRepository repository;
+    @Inject
+    private AwsSnsService snsService;
 
     public Category insert(CategoryDTO categoryData) {
         Category category = new Category(categoryData);
         this.repository.persist(category);
+        this.snsService.publishMessage(new MessageDTO(category.toString()));
         return category;
     }
 
@@ -51,6 +56,7 @@ public class CategoryService {
             category.setDescription(categoryData.description());
 
         this.repository.update(category);
+        this.snsService.publishMessage(new MessageDTO(category.toString()));
         return category;
     }
 
